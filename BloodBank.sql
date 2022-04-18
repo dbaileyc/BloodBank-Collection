@@ -6,7 +6,6 @@ lname varchar(15) not null,
 donor_age integer not null CHECK (donor_age>=16),
 weightLBS integer not null CHECK (weightLBS>=110),
 conditions varchar(100) not null check(conditions in ('Hepatitis B','HIV','Human t-lymphotropic virus (HTLV) I and II' ,'Syphilis', 'West Nile Virus', 'Chagas Disease','none')),
---The 'none' is also added in check so as the SQL compiler checks it as a different(normal as we see) type and does not generate a error--
 donor_address varchar(100) not null, 
 donor_contact varchar(50) not null,
 donor_bloodtype varchar(100) not null,
