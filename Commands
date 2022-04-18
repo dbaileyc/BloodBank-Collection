@@ -1,0 +1,86 @@
+--- SHOWS ALL THE DONORS IN THE DATABASE WHO ARE OVER THE AGE OF >=16 AND >=110 LBS. THERE ARE A TOTAL OF 25 DONORS HOWEVER, THERE ARE 2 NOT SHOWING IN THE DATABASE BECAUSE THOSE DONORS ARE EITHER YOUNGER THEN 16 OR LESS THAN 110 LBS. --- 
+
+SELECT * FROM DONOR 
+
+
+--- SHOWS DONATION DETAILS OF DONORS --
+
+SELECT * FROM DONATION 
+
+---SHOWS DONORS THAT DONATED BETWEEN 01-JAN-17 AND 15-NOV-20 ----
+
+SELECT DONOR_ID, DONATION_NUMBER, DATE_OF_DONATION
+FROM DONATION
+WHERE DATE_OF_DONATION BETWEEN '01-JAN-17' AND '15-NOV-20'
+ORDER BY DATE_OF_DONATION, DONOR_ID; 
+
+
+----UPDATE DONORS AGE AND ADDRESS----
+
+UPDATE DONOR
+SET DONOR_AGE = '35', DONOR_ADDRESS = '277 POPLAR ST, PHILADELPHIA, PA 19130'
+WHERE DONOR_ID = 576205;
+
+----SEE THE CHANGES OF THE DONORS AGE AND ADDRESS----
+
+SELECT * FROM DONOR
+WHERE DONOR_ID = 576205;
+
+----SELECT DONATION_BLOODTYPE SPECIFIC 'B+'
+
+SELECT *
+FROM Donation
+WHERE donation_bloodtype IN (select donation_bloodtype
+FROM Donation
+WHERE donation_bloodtype = 'B+')
+
+
+----SHOW DONORS THAT LIVE IN THE PHILADELPHIA AREA----
+
+SELECT donor_address 
+FROM Donor 
+WHERE donor_address like '%Philadelphia%';
+
+
+
+----SHOW INELIGIBLE DONORS (DONOR_ID) BASED OFF OF PRE-EXISTING CONDITIONS----
+
+SELECT CONCAT(Donor.donor_id,concat(' ',Donor.conditions))"INELIGIBLE Donor" from Donor where conditions <>'none';
+
+
+-----SHOW ELIGIBLE DONORS (DONOR_ID) BASED OFF OF 'NONE' CONDITIONS(DONORS WHO CAN DONATE)----
+
+SELECT CONCAT(Donor.donor_id,concat(' ',Donor.conditions))"ELIGIBLE Donor" from Donor where conditions ='none';
+
+
+----DELETE THE INELIGIBLE DONORS OFF THE DATABASE------
+
+
+DELETE FROM Donation where donor_id in(Select donor_id from Donor where conditions <>'none');
+
+DELETE FROM Donor where donor_id in(Select donor_id from Donor where conditions <>'none');
+
+
+----A View Command that only allows donor data for donor_id 567103, 576202, 576204 to be viewed, and don’t display age, address and conditions----
+
+--CREATE VIEW TABLE --
+
+CREATE View V1 as Select distinct donor_id,fname,minit,lname,weightLBS,donor_contact,donor_bloodtype from Donor where donor_id in(576103, 576202, 576204);
+
+--SELECT VIEW TABLE --
+
+SELECT * FROM V1
+
+--DELETE VIEW TABLE --
+
+DROP VIEW V1
+
+
+---A LEFT JOIN WITH DONOR TO DONATION AND RETRIEVE ONLY DONORS WHOSE BLOOD GROUP DONATE WITH 'B+' OR THAT BLOOD GROUP IS 'B+' */----
+
+SELECT distinct CONCAT(Donor.fname,concat(' ',Donor.lname))"Full Name" from Donor Left Join Donation on Donor.Donor_id=Donation.Donor_id where donation_bloodtype='B+' or donor_bloodtype='B+';
+
+
+
+
+
