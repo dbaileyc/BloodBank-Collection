@@ -1,0 +1,53 @@
+Blood Bank Donor Tracker 
+
+Data of Donor 
+Donor Name
+First name
+Middle initial
+Last name
+Donor Id
+Donation Number
+Donor Blood Type
+A (Positive or negative)
+B (Positive or negative)
+AB (Positive or negative)
+O (Positive or negative)
+Donor Age [MUST be greater than 16]
+Donor Weight (in pounds) [MUST be greater than 110 lbs]
+Donor Pre-existing conditions (True if any of 6 are present, otherwise false)
+Donor Address
+Donor Contact number
+Days since last donation (integer)
+
+Data of Donation
+Donor ID
+Donation Number
+Donor Blood Type
+A (Positive or negative)
+B (Positive or negative)
+AB (Positive or negative)
+O (Positive or negative)
+Volume (in pints)
+Donation date
+
+Data of Blood Bank
+Blood Bank Name
+Blood Bank ID
+Blood Bank Address
+Blood Bank Contact Information
+Phone
+Email
+Fax
+
+Data of Blood Bank Inventory
+Blood bank ID
+Donation number
+Blood types
+A (Positive or negative)
+B (Positive or negative)
+AB (Positive or negative)
+O (Positive or negative)
+Blood Volume (in pints)
+
+
+
