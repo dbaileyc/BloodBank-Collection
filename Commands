@@ -19,12 +19,12 @@ ORDER BY DATE_OF_DONATION, DONOR_ID;
 
 UPDATE DONOR
 SET DONOR_AGE = '35', DONOR_ADDRESS = '277 POPLAR ST, PHILADELPHIA, PA 19130'
-WHERE DONOR_ID = 576205;
+WHERE DONOR_ID = 576000023;
 
 ----SEE THE CHANGES OF THE DONORS AGE AND ADDRESS----
 
 SELECT * FROM DONOR
-WHERE DONOR_ID = 576205;
+WHERE DONOR_ID = 576000023;
 
 ----SELECT DONATION_BLOODTYPE SPECIFIC 'B+'
 
@@ -61,11 +61,11 @@ DELETE FROM Donation where donor_id in(Select donor_id from Donor where conditio
 DELETE FROM Donor where donor_id in(Select donor_id from Donor where conditions <>'none');
 
 
-----A View Command that only allows donor data for donor_id 567103, 576202, 576204 to be viewed, and don’t display age, address and conditions----
+----A View Command that only allows donor data for donor_id 576000002, 576000009, 576000010 to be viewed, and don’t display age, address and conditions----
 
 --CREATE VIEW TABLE --
 
-CREATE View V1 as Select distinct donor_id,fname,minit,lname,weightLBS,donor_contact,donor_bloodtype from Donor where donor_id in(576103, 576202, 576204);
+CREATE View V1 as Select distinct donor_id,fname,minit,lname,weightLBS,donor_contact,donor_bloodtype from Donor where donor_id in(576000002, 576000009, 576000010);
 
 --SELECT VIEW TABLE --
 
@@ -79,8 +79,3 @@ DROP VIEW V1
 ---A LEFT JOIN WITH DONOR TO DONATION AND RETRIEVE ONLY DONORS WHOSE BLOOD GROUP DONATE WITH 'B+' OR THAT BLOOD GROUP IS 'B+' */----
 
 SELECT distinct CONCAT(Donor.fname,concat(' ',Donor.lname))"Full Name" from Donor Left Join Donation on Donor.Donor_id=Donation.Donor_id where donation_bloodtype='B+' or donor_bloodtype='B+';
-
-
-
-
-
