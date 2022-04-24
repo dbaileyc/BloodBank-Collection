@@ -4,17 +4,6 @@ We developed a blood bank collection database that keeps track of the number of 
 
 The database also tracks information about a donation instance, including the donor ID and donation number, the donor’s blood type, the volume of donation, and the donation date. The name, address, contact information, and unique ID of the blood bank is stored in the database, along with the inventory the blood bank has on site for each blood type, namely the volume of inventory for each blood type. We are assuming this fictional blood bank was established when this project began, which means there is no inventory prior to the addition of the donor data created in this project. When a new donation entry is created or updated, the inventory level of a particular blood type in the blood bank is updated accordingly.
  
- 
-The database contains 25 donors, but two do not meet the age or weight requirements, so only 23 will be displayed. (Missing Donor_ID: 576000001, 576000011)
 
-(The SQL  is designed to automatically eliminate those who do not meet the required age or weight requirements.)
-weightLBS integer not null CHECK (weightLBS>=110), 
-donor age integer not null CHECK (donor age>=16),
-
-There are 15 Eligible Donors and 8 Ineligible Donors 
-
-Because the Donation Table is only intended to store the information of eligible donors, there are only 15 entries. 
-
-The BBInventory BBVolumept differs from the donation volumept in that it is used to track multiple donations (pints) whereas the donation table only tracks one donation.
 
 
