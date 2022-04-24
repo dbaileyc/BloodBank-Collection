@@ -1,4 +1,4 @@
---- SHOWS ALL THE DONORS IN THE DATABASE WHO ARE OVER THE AGE OF >=16 AND >=110 LBS. THERE ARE A TOTAL OF 25 DONORS HOWEVER, THERE ARE 2 NOT SHOWING IN THE DATABASE BECAUSE THOSE DONORS ARE EITHER YOUNGER THEN 16 OR LESS THAN 110 LBS. --- 
+--- SHOWS ALL THE DONORS IN THE DATABASE WHO ARE OVER THE AGE OF >=16 AND >=110 LBS. 
 
 SELECT * FROM DONOR 
 
@@ -6,6 +6,16 @@ SELECT * FROM DONOR
 --- SHOWS DONATION DETAILS OF DONORS --
 
 SELECT * FROM DONATION 
+
+
+--- SHOWS BLOODBANK CONTACT INFORMATION ---
+
+SELECT * FROM BLOODBANK
+
+--- SHOWS BLOODBANK INVENTORY ---
+
+SELECT * FROM BBINVENTORY
+
 
 ---SHOWS DONORS THAT DONATED BETWEEN 01-JAN-17 AND 15-NOV-20 ----
 
@@ -26,6 +36,8 @@ WHERE DONOR_ID = 576000023;
 SELECT * FROM DONOR
 WHERE DONOR_ID = 576000023;
 
+
+
 ----SELECT DONATION_BLOODTYPE SPECIFIC 'B+'
 
 SELECT *
@@ -35,33 +47,41 @@ FROM Donation
 WHERE donation_bloodtype = 'B+')
 
 
-----SHOW DONORS THAT LIVE IN THE PHILADELPHIA AREA----
+---LEFT JOIN STATEMENT TO RETREIVE BLOODBANK AND BBINVENTORY INFO---
 
-SELECT donor_address 
-FROM Donor 
-WHERE donor_address like '%Philadelphia%';
-
+SELECT * FROM BBINVENTORY
+LEFT JOIN BLOODBANK ON BLOODBANK.BLOOD_BANK_ID = BBINVENTORY.BLOOD_BANK_ID
 
 
-----SHOW INELIGIBLE DONORS (DONOR_ID) BASED OFF OF PRE-EXISTING CONDITIONS----
 
-SELECT CONCAT(Donor.donor_id,concat(' ',Donor.conditions))"INELIGIBLE Donor" from Donor where conditions <>'none';
+----SHOW INELIGIBLE DONORS BASED OFF OF PRE-EXISTING CONDITIONS----
+
+SELECT 'INELIGIBLE' AS donorstatus, DONOR.DONOR_ID, FNAME, MINIT, LNAME, CONDITIONS FROM DONOR
+WHERE CONDITIONS <> 'none'
 
 
------SHOW ELIGIBLE DONORS (DONOR_ID) BASED OFF OF 'NONE' CONDITIONS(DONORS WHO CAN DONATE)----
+-----SHOW ELIGIBLE DONORS (DONOR_ID) BASED OFF OF 'NONE' CONDITIONS----
 
-SELECT CONCAT(Donor.donor_id,concat(' ',Donor.conditions))"ELIGIBLE Donor" from Donor where conditions ='none';
+SELECT 'ELIGIBLE' AS donorstatus, DONOR.DONOR_ID, FNAME, MINIT, LNAME, CONDITIONS FROM DONOR
+WHERE CONDITIONS = 'none'
+
+
+---Count BloodBank Volume to Demonstrate the number of people that donated 2 pints in the BBInventory---
+
+
+SELECT COUNT (*) from BBInventory where BBinventory.bbvolumept = 2;
+
 
 
 ----DELETE THE INELIGIBLE DONORS OFF THE DATABASE------
 
-
-DELETE FROM Donation where donor_id in(Select donor_id from Donor where conditions <>'none');
-
-DELETE FROM Donor where donor_id in(Select donor_id from Donor where conditions <>'none');
+use BloodBank
+delete from Donor where not conditions = 'none';
 
 
-----A View Command that only allows donor data for donor_id 576000002, 576000009, 576000010 to be viewed, and don’t display age, address and conditions----
+
+
+----A VIEW COMMAND that only allows donor data for donor_id 576000002, 576000009, 576000010 to be viewed, and don’t display age, address and conditions----
 
 --CREATE VIEW TABLE --
 
@@ -76,6 +96,3 @@ SELECT * FROM V1
 DROP VIEW V1
 
 
----A LEFT JOIN WITH DONOR TO DONATION AND RETRIEVE ONLY DONORS WHOSE BLOOD GROUP DONATE WITH 'B+' OR THAT BLOOD GROUP IS 'B+' */----
-
-SELECT distinct CONCAT(Donor.fname,concat(' ',Donor.lname))"Full Name" from Donor Left Join Donation on Donor.Donor_id=Donation.Donor_id where donation_bloodtype='B+' or donor_bloodtype='B+';
