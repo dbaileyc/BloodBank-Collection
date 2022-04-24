@@ -147,7 +147,7 @@ insert into Donation (donor_id,donation_number,blood_bank_id,donation_bloodtype,
 values (576000006, 6, 1, 'AB+', 1,'16-MAR-17');
 
 insert into Donation (donor_id,donation_number,blood_bank_id,donation_bloodtype,donation_volumePT,date_of_donation)
-values (576000007, 7, 1, 'B-', 1,'19-APR-21');
+values (576000007, 7, 1, 'B-', 0,'19-APR-21');
 
 insert into Donation (donor_id,donation_number,blood_bank_id,donation_bloodtype,donation_volumePT,date_of_donation)
 values (576000008, 8, 1, 'AB-', 1, '28-MAY-21');
