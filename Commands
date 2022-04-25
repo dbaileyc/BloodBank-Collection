@@ -95,4 +95,13 @@ SELECT * FROM V1
 
 DROP VIEW V1
 
+-- NESTED QUERY --
+
+SELECT fname || ' ' || lname AS DONOR
+FROM DONOR
+WHERE donor_id IN (
+    SELECT donor_id
+    FROM DONATION
+    WHERE donation_bloodtype IN ('AB-','O-') OR date_of_donation > '1-JAN-20');
+    
 
